@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Rejestracja</title>
+    <!-- <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One"
+      rel="stylesheet" /> -->
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+  </head>
+
+  <script>
+    function goBack() {
+      window.location.href = "./index.html";
+    }
+  </script>
+
+  <body>
+    <div>
+      <h1>Ekran Rejestracji</h1>
+      <button onclick="goBack()">Powrót</button>
+      <form>
+        <label>Nazwa użytkownika</label>
+        <input type="text" />
+        <label>Hasło</label>
+        <input type="password" />
+        <label>Email</label>
+        <input type="text" />
+        <label>Potwierdź email</label>
+        <input type="text" />
+        <button type="submit" onclick="alert('Rejestracja w toku...')">
+          Zarejestruj
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
