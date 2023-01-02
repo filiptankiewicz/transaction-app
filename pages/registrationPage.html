@@ -16,24 +16,67 @@
       window.location.href = "./index.html";
     }
   </script>
-
   <body>
     <div>
       <h1>Ekran Rejestracji</h1>
       <button onclick="goBack()">Powrót</button>
-      <form>
+      <form role="form" onsubmit="signUp(event);" autocomplete="off">
         <label>Nazwa użytkownika</label>
-        <input type="text" />
+        <input type="text" id="name" />
         <label>Hasło</label>
-        <input type="password" />
+        <input type="password" id="password" />
         <label>Email</label>
-        <input type="text" />
+        <input type="text" id="email" />
         <label>Potwierdź email</label>
-        <input type="text" />
-        <button type="submit" onclick="alert('Rejestracja w toku...')">
-          Zarejestruj
-        </button>
+        <input type="text" id="repeatEmail" />
+        <button type="submit">Zarejestruj</button>
       </form>
+      <hr />
+      <div id="userData"></div>
     </div>
+
+    <script type="text/javascript">
+      const signUp = (data) => {
+        let formData = JSON.parse(localStorage.getItem("formData")) || [];
+        let exist =
+          formData.length &&
+          JSON.parse(localStorage.getItem("formData")).some(
+            (data) =>
+              data.name.toLowerCase() ==
+              document.getElementById("name").value.toLowerCase()
+          );
+        if (!exist) {
+          formData.push({
+            name: document.getElementById("name").value,
+            password: document.getElementById("password").value,
+            email: document.getElementById("email").value,
+            repeatEmail: document.getElementById("repeatEmail").value,
+          });
+          localStorage.setItem("formData", JSON.stringify(formData));
+          displayData();
+          document.querySelector("form").reset();
+          document.getElementById("name").focus();
+        } else {
+          alert("Konto o takiej nazwie juz istnieje!");
+        }
+        data.preventDefault();
+      };
+      function displayData() {
+        const webStorage = localStorage.getItem("formData");
+        console.log(webStorage);
+        if (webStorage) {
+          const userData = document.getElementById("userData");
+          JSON.parse(webStorage).forEach((data) => {
+            userData.innerHTML = `
+                ${data.name}
+                ${data.password}
+                ${data.email}
+                ${data.repeatEmail}
+            `;
+          });
+        }
+      }
+      displayData();
+    </script>
   </body>
 </html>
