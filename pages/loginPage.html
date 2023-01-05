@@ -22,12 +22,41 @@
     <button onclick="goBack()">Powrót</button>
     <form>
       <label>Nazwa użytkownika</label>
-      <input type="text" />
+      <input type="text" id="name" />
       <label>Hasło</label>
-      <input type="password" />
-      <button type="submit" onclick="alert('Logowanie w toku...')">
-        Zaloguj
-      </button>
+      <input type="password" id="password" />
+      <button type="submit" onclick="signIn()">Zaloguj</button>
     </form>
+
+    <script type="text/javascript">
+      function signIn() {
+        let userData = {
+          name: document.getElementById("name").value,
+          password: document.getElementById("password").value,
+        };
+
+        let userFromLocalStorage = JSON.parse(localStorage.getItem("formData"))
+          ? JSON.parse(localStorage.getItem("formData"))
+          : [];
+        if (
+          userFromLocalStorage.some((formData) => {
+            return (
+              formData.name == userData.name &&
+              formData.password == userData.password
+            );
+          })
+        ) {
+          alert("Login success!");
+          window.location.href = "./homeOnlinePage.html";
+        }
+        // let userLogged = userFromLocalStorage.filter((formData) => {
+        //   return formData.name == userData.name;
+        // })[0];
+        // localStorage.setItem("name", userLogged.name);
+        else {
+          alert("Login failed");
+        }
+      }
+    </script>
   </body>
 </html>
