@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pl">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Logowanie</title>
     <!-- <link
@@ -10,53 +10,52 @@
       rel="stylesheet" /> -->
     <!-- <link rel="stylesheet" href="style.css" /> -->
   </head>
+  <body>
+    <div>
+      <h1>Ekran Logowania</h1>
+      <button onclick="goBack()">Powrót</button>
+      <form role="form" autocomplete="off">
+        <label>Nazwa:</label>
+        <input type="text" id="name" placeholder="Enter name" name="name" />
+        <label>Hasło:</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter password"
+          name="password"
+        />
+        <button type="button" onclick="signIn()">Zaloguj</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    const signIn = () => {
+      let userData = {
+        name: document.getElementById("name").value,
+        password: document.getElementById("password").value,
+      };
 
+      let userFromLocalStorage = JSON.parse(localStorage.getItem("formData"))
+        ? JSON.parse(localStorage.getItem("formData"))
+        : [];
+      if (
+        userFromLocalStorage.some((formData) => {
+          return (
+            formData.name == userData.name &&
+            formData.password == userData.password
+          );
+        })
+      ) {
+        alert("Logowanie zakończone sukcesem!");
+        window.location.href = "./homeOnlinePage.html";
+      } else {
+        alert("Logowanie zakończone niepowodzeniem");
+      }
+    };
+  </script>
   <script>
     function goBack() {
       window.location.href = "./index.html";
     }
   </script>
-
-  <body>
-    <h1>Ekran Logowania</h1>
-    <button onclick="goBack()">Powrót</button>
-    <form>
-      <label>Nazwa użytkownika</label>
-      <input type="text" id="name" />
-      <label>Hasło</label>
-      <input type="password" id="password" />
-      <button type="submit" onclick="signIn()">Zaloguj</button>
-    </form>
-
-    <script type="text/javascript">
-      function signIn() {
-        let userData = {
-          name: document.getElementById("name").value,
-          password: document.getElementById("password").value,
-        };
-
-        let userFromLocalStorage = JSON.parse(localStorage.getItem("formData"))
-          ? JSON.parse(localStorage.getItem("formData"))
-          : [];
-        if (
-          userFromLocalStorage.some((formData) => {
-            return (
-              formData.name == userData.name &&
-              formData.password == userData.password
-            );
-          })
-        ) {
-          alert("Login success!");
-          window.location.href = "./homeOnlinePage.html";
-        }
-        // let userLogged = userFromLocalStorage.filter((formData) => {
-        //   return formData.name == userData.name;
-        // })[0];
-        // localStorage.setItem("name", userLogged.name);
-        else {
-          alert("Login failed");
-        }
-      }
-    </script>
-  </body>
 </html>
