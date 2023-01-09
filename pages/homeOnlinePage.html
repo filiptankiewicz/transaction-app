@@ -15,9 +15,19 @@
     <h1>
       Hej
       <script>
-        document.write(localStorage.getItem("name"));
+        document.write(localStorage.getItem("userData_Name"));
       </script>
     </h1>
     <h2>Strona główna zalogowanego użytkownika</h2>
+    <button onclick="signOut()">wyloguj się</button>
   </body>
+  <script>
+    function signOut() {
+      localStorage.removeItem("userData_Name");
+      localStorage.removeItem("userData_Password");
+      alert("Wylogowywanie...");
+      window.location.reload("./index.html");
+      window.location.replace("./index.html");
+    }
+  </script>
 </html>

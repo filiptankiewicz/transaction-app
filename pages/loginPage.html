@@ -29,7 +29,7 @@
     </div>
   </body>
   <script>
-    const signIn = () => {
+    function signIn() {
       let userData = {
         name: document.getElementById("name").value,
         password: document.getElementById("password").value,
@@ -47,11 +47,20 @@
         })
       ) {
         alert("Logowanie zakończone sukcesem!");
-        window.location.href = "./homeOnlinePage.html";
+        window.location.replace("./homeOnlinePage.html");
+        let userSignedIn = userFromLocalStorage.filter((formData) => {
+          return (
+            formData.name == userData.name &&
+            formData.password == userData.password
+          );
+        })[0];
+
+        localStorage.setItem("userData_Name", userSignedIn.name);
+        localStorage.setItem("userData_Password", userSignedIn.password);
       } else {
         alert("Logowanie zakończone niepowodzeniem");
       }
-    };
+    }
   </script>
   <script>
     function goBack() {
