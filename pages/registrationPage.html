@@ -20,7 +20,7 @@
     <div>
       <h1>Ekran Rejestracji</h1>
       <button onclick="goBack()">Powrót</button>
-      <form role="form" onsubmit="signUp(event);" autocomplete="off">
+      <form id="form" role="form" onsubmit="signUp(event);" autocomplete="off">
         <label>Nazwa użytkownika</label>
         <input type="text" id="name" />
         <label>Hasło</label>
@@ -35,6 +35,53 @@
       <div id="userData"></div>
     </div>
 
+    <script>
+      function validateFields() {
+        const name = document.getElementById("name").value;
+        const nameLength = document.getElementById("name").value.length;
+        const validNameCharacters = /^[0-9a-zA-Z]+$/;
+        const validEmailCharacters =
+          /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        const passwordLength = document.getElementById("password").value.length;
+
+        const email = document.getElementById("email").value;
+        const repeatEmail = document.getElementById("repeatEmail").value;
+
+        if (name === "") {
+          alert("Pole nazwa nie może być puste!");
+          return false;
+        }
+
+        if (nameLength < 6 || nameLength > 16) {
+          alert("Pole nazwa musi mieć od 6 do 16 znaków!");
+          return false;
+        }
+
+        if (!name.match(validNameCharacters)) {
+          alert("Pole nazwa może zawierać tylko litery i cyfry!");
+          return false;
+        }
+
+        if (passwordLength < 6) {
+          alert("Pole hasło musi mieć co najmniej 6 znaków!");
+          return false;
+        }
+
+        if (!email.match(validEmailCharacters)) {
+          alert("Pole email musi mieć poprawny format!");
+          return false;
+        }
+
+        if (email !== repeatEmail) {
+          alert("Pole Email i Potwierdź Email się nie zgadzają!");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+
     <script type="text/javascript">
       function signUp(data) {
         let allUsersData =
@@ -48,30 +95,31 @@
               data.email.toLowerCase() ==
                 document.getElementById("email").value.toLowerCase()
           );
-        if (!exist) {
-          allUsersData = [
-            {
-              name: document.getElementById("name").value,
-              password: document.getElementById("password").value,
-              email: document.getElementById("email").value,
-              repeatEmail: document.getElementById("repeatEmail").value,
-            },
-            ...allUsersData,
-          ];
-          localStorage.setItem("allUsersData", JSON.stringify(allUsersData));
-          let userSignedIn = allUsersData.filter((userData) => {
-            return userData.name == allUsersData[0].name;
-          })[0];
+        if (validateFields()) {
+          if (!exist) {
+            allUsersData = [
+              {
+                name: document.getElementById("name").value,
+                password: document.getElementById("password").value,
+                email: document.getElementById("email").value,
+                repeatEmail: document.getElementById("repeatEmail").value,
+              },
+              ...allUsersData,
+            ];
+            localStorage.setItem("allUsersData", JSON.stringify(allUsersData));
+            let userSignedIn = allUsersData.filter((userData) => {
+              return userData.name == allUsersData[0].name;
+            })[0];
 
-          localStorage.setItem("userData_Name", userSignedIn.name);
-          window.location.replace("./homeOnlinePage.html");
-
-          document.getElementById("name").focus();
-          document.getElementById("email").focus();
-        } else {
-          alert("Konto o takiej nazwie lub emailu juz istnieje!");
+            localStorage.setItem("userData_Name", userSignedIn.name);
+            window.location.replace("./homeOnlinePage.html");
+            document.getElementById("name").focus();
+            document.getElementById("email").focus();
+          } else {
+            alert("Konto o takiej nazwie lub emailu juz istnieje!");
+          }
+          data.preventDefault();
         }
-        data.preventDefault();
       }
     </script>
   </body>
