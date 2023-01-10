@@ -36,50 +36,41 @@
     </div>
 
     <script type="text/javascript">
-      const signUp = (data) => {
-        let formData = JSON.parse(localStorage.getItem("formData")) || [];
+      function signUp(data) {
+        let allUsersData =
+          JSON.parse(localStorage.getItem("allUsersData")) || [];
         let exist =
-          formData.length &&
-          JSON.parse(localStorage.getItem("formData")).some(
+          allUsersData.length &&
+          JSON.parse(localStorage.getItem("allUsersData")).some(
             (data) =>
               data.name.toLowerCase() ==
               document.getElementById("name").value.toLowerCase()
           );
         if (!exist) {
-          formData = [
+          allUsersData = [
             {
               name: document.getElementById("name").value,
               password: document.getElementById("password").value,
               email: document.getElementById("email").value,
               repeatEmail: document.getElementById("repeatEmail").value,
             },
-            ...formData,
+            ...allUsersData,
           ];
-          localStorage.setItem("formData", JSON.stringify(formData));
-          displayData();
+          localStorage.setItem("allUsersData", JSON.stringify(allUsersData));
+          let userSignedIn = allUsersData.filter((userData) => {
+            return userData.name == allUsersData[0].name;
+          })[0];
+
+          localStorage.setItem("userData_Name", userSignedIn.name);
+          window.location.replace("./homeOnlinePage.html");
+
           document.querySelector("form").reset();
           document.getElementById("name").focus();
         } else {
           alert("Konto o takiej nazwie juz istnieje!");
         }
         data.preventDefault();
-      };
-      function displayData() {
-        const webStorage = localStorage.getItem("formData");
-        console.log(webStorage);
-        if (webStorage) {
-          const userData = document.getElementById("userData");
-          JSON.parse(webStorage).forEach((data) => {
-            userData.innerHTML = `
-                ${data.name}
-                ${data.password}
-                ${data.email}
-                ${data.repeatEmail}
-            `;
-          });
-        }
       }
-      displayData();
     </script>
   </body>
 </html>

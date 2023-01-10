@@ -30,33 +30,28 @@
   </body>
   <script>
     function signIn() {
-      let userData = {
+      let userFromLocalStorage = JSON.parse(
+        localStorage.getItem("allUsersData")
+      )
+        ? JSON.parse(localStorage.getItem("allUsersData"))
+        : [];
+
+      let userLoginData = {
         name: document.getElementById("name").value,
         password: document.getElementById("password").value,
       };
 
-      let userFromLocalStorage = JSON.parse(localStorage.getItem("formData"))
-        ? JSON.parse(localStorage.getItem("formData"))
-        : [];
-      if (
-        userFromLocalStorage.some((formData) => {
-          return (
-            formData.name == userData.name &&
-            formData.password == userData.password
-          );
-        })
-      ) {
+      let userSignedIn = userFromLocalStorage.filter((userData) => {
+        return (
+          userData.name == userLoginData.name &&
+          userData.password == userLoginData.password
+        );
+      })[0];
+
+      if (userSignedIn) {
         alert("Logowanie zakończone sukcesem!");
         window.location.replace("./homeOnlinePage.html");
-        let userSignedIn = userFromLocalStorage.filter((formData) => {
-          return (
-            formData.name == userData.name &&
-            formData.password == userData.password
-          );
-        })[0];
-
         localStorage.setItem("userData_Name", userSignedIn.name);
-        localStorage.setItem("userData_Password", userSignedIn.password);
       } else {
         alert("Logowanie zakończone niepowodzeniem");
       }
