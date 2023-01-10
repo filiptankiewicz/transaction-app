@@ -44,7 +44,9 @@
           JSON.parse(localStorage.getItem("allUsersData")).some(
             (data) =>
               data.name.toLowerCase() ==
-              document.getElementById("name").value.toLowerCase()
+                document.getElementById("name").value.toLowerCase() ||
+              data.email.toLowerCase() ==
+                document.getElementById("email").value.toLowerCase()
           );
         if (!exist) {
           allUsersData = [
@@ -64,10 +66,10 @@
           localStorage.setItem("userData_Name", userSignedIn.name);
           window.location.replace("./homeOnlinePage.html");
 
-          document.querySelector("form").reset();
           document.getElementById("name").focus();
+          document.getElementById("email").focus();
         } else {
-          alert("Konto o takiej nazwie juz istnieje!");
+          alert("Konto o takiej nazwie lub emailu juz istnieje!");
         }
         data.preventDefault();
       }
