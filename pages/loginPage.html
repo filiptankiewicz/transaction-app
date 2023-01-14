@@ -15,8 +15,13 @@
       <h1>Ekran Logowania</h1>
       <button onclick="goBack()">Powrót</button>
       <form role="form" autocomplete="off">
-        <label>Nazwa:</label>
-        <input type="text" id="name" placeholder="Enter name" name="name" />
+        <label>Nazwa użytkownika / Email:</label>
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter name or Email"
+          name="name"
+        />
         <label>Hasło:</label>
         <input
           type="password"
@@ -65,18 +70,22 @@
           JSON.parse(localStorage.getItem("allUsersData")).some(
             (data) =>
               data.name.toLowerCase() ==
-              document.getElementById("name").value.toLowerCase()
+                document.getElementById("name").value.toLowerCase() ||
+              data.email.toLowerCase() ==
+                document.getElementById("name").value.toLowerCase()
           );
 
         let userLoginData = {
           name: document.getElementById("name").value,
+          email: userFromLocalStorage[0].email,
           password: document.getElementById("password").value,
         };
 
         let userSignedIn = userFromLocalStorage.filter((userData) => {
           return (
-            userData.name == userLoginData.name &&
-            userData.password == userLoginData.password
+            userData.name == userLoginData.name ||
+            (userData.email == userLoginData.email &&
+              userData.password == userLoginData.password)
           );
         })[0];
 
