@@ -32,7 +32,7 @@
         <button type="submit" onclick="signUp(event)">Zarejestruj</button>
       </form>
       <hr />
-      <div id="error"></div>
+      <p id="error"></p>
       <div id="userData"></div>
     </div>
 
@@ -44,6 +44,7 @@
         const validEmailCharacters =
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+        const password = document.getElementById("password").value;
         const passwordLength = document.getElementById("password").value.length;
 
         const email = document.getElementById("email").value;
@@ -54,42 +55,60 @@
           name: "Pole nazwa użytkownika nie może być puste!",
           nameLength: "Pole nazwa musi mieć od 6 do 16 znaków!",
           validNameCharacters: "Pole nazwa może zawierać tylko litery i cyfry!",
+          password: "Pole hasło nie może być puste!",
           passwordLength: "Pole hasło musi mieć co najmniej 6 znaków!",
+          email: "Pole email nie może być puste!",
+          repeatEmail: "Pole potwierdź email nie może być puste!",
           validEmailCharacters: "Pole email musi mieć poprawny format!",
-          email: "Pole Email i Potwierdź Email muszą być takie same!",
+          confirmEmail: "Pole Email i Potwierdź Email muszą być takie same!",
         };
 
-        if (name === "") {
-          error.innerHTML = errorMessages.name;
+        const errorSameEmails =
+          email !== repeatEmail
+            ? (error.innerHTML = errorMessages.confirmEmail)
+            : false;
+        const errorRepeatEmail =
+          repeatEmail == ""
+            ? (error.innerHTML = errorMessages.repeatEmail)
+            : false;
 
-          return false;
-        }
-        if (nameLength < 6 || nameLength > 16) {
-          error.innerHTML = errorMessages.nameLength;
-          return false;
-        }
+        const errorEmailCharacters = !email.match(validEmailCharacters)
+          ? (error.innerHTML = errorMessages.validEmailCharacters)
+          : false;
 
-        if (!name.match(validNameCharacters)) {
-          error.innerHTML = errorMessages.validNameCharacters;
-          return false;
-        }
+        const errorEmail =
+          email == "" ? (error.innerHTML = errorMessages.email) : false;
+        const errorPasswordLength =
+          passwordLength < 6
+            ? (error.innerHTML = errorMessages.passwordLength)
+            : false;
+        const errorPassword =
+          password === "" ? (error.innerHTML = errorMessages.password) : false;
 
-        if (passwordLength < 6) {
-          error.innerHTML = errorMessages.passwordLength;
-          return false;
-        }
+        const errorNameCharacters = !name.match(validNameCharacters)
+          ? (error.innerHTML = errorMessages.validNameCharacters)
+          : false;
 
-        if (!email.match(validEmailCharacters)) {
-          error.innerHTML = errorMessages.validEmailCharacters;
-          return false;
-        }
+        const errorNameLength =
+          nameLength < 6 || nameLength > 16
+            ? (error.innerHTML = errorMessages.nameLength)
+            : false;
 
-        if (email !== repeatEmail) {
-          error.innerHTML = errorMessages.email;
-          return false;
-        }
+        const errorName =
+          name === "" ? (error.innerHTML = errorMessages.name) : false;
 
-        return true;
+        const validateRules =
+          errorName ||
+          errorNameLength ||
+          errorNameCharacters ||
+          errorPassword ||
+          errorPasswordLength ||
+          errorEmail ||
+          errorRepeatEmail ||
+          errorEmailCharacters ||
+          errorSameEmails;
+
+        if (!validateRules) return true;
       }
     </script>
 
@@ -100,7 +119,7 @@
         if (validate) {
           let allUsersData =
             JSON.parse(localStorage.getItem("allUsersData")) || [];
-          let exist =
+          let userExist =
             allUsersData.length &&
             JSON.parse(localStorage.getItem("allUsersData")).some(
               (data) =>
@@ -109,7 +128,7 @@
                 data.email.toLowerCase() ==
                   document.getElementById("email").value.toLowerCase()
             );
-          if (!exist) {
+          if (!userExist) {
             const error = document.getElementById("error");
 
             allUsersData = [

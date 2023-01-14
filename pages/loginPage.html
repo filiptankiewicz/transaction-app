@@ -25,35 +25,76 @@
           name="password"
         />
         <button type="button" onclick="signIn()">Zaloguj</button>
+        <hr />
+        <p id="error"></p>
       </form>
     </div>
   </body>
   <script>
-    function signIn() {
-      let userFromLocalStorage = JSON.parse(
-        localStorage.getItem("allUsersData")
-      )
-        ? JSON.parse(localStorage.getItem("allUsersData"))
-        : [];
+    function validateFields() {
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+      const error = document.getElementById("error");
 
-      let userLoginData = {
-        name: document.getElementById("name").value,
-        password: document.getElementById("password").value,
+      const errorMessages = {
+        name: "Pole nazwa użytkownika nie może być puste!",
+        password: "Pole hasło nie może być puste!",
       };
 
-      let userSignedIn = userFromLocalStorage.filter((userData) => {
-        return (
-          userData.name == userLoginData.name &&
-          userData.password == userLoginData.password
-        );
-      })[0];
+      const errorPassword =
+        password === "" ? (error.innerHTML = errorMessages.password) : false;
+      const errorName =
+        name === "" ? (error.innerHTML = errorMessages.name) : false;
 
-      if (userSignedIn) {
-        alert("Logowanie zakończone sukcesem!");
-        window.location.replace("./homeOnlinePage.html");
-        localStorage.setItem("userData_Name", userSignedIn.name);
-      } else {
-        alert("Logowanie zakończone niepowodzeniem");
+      const validateRules = errorName || errorPassword;
+      if (!validateRules) return true;
+    }
+  </script>
+  <script>
+    function signIn() {
+      let validate = validateFields();
+      if (validate) {
+        let userFromLocalStorage = JSON.parse(
+          localStorage.getItem("allUsersData")
+        )
+          ? JSON.parse(localStorage.getItem("allUsersData"))
+          : [];
+
+        let userExist =
+          userFromLocalStorage.length &&
+          JSON.parse(localStorage.getItem("allUsersData")).some(
+            (data) =>
+              data.name.toLowerCase() ==
+              document.getElementById("name").value.toLowerCase()
+          );
+
+        let userLoginData = {
+          name: document.getElementById("name").value,
+          password: document.getElementById("password").value,
+        };
+
+        let userSignedIn = userFromLocalStorage.filter((userData) => {
+          return (
+            userData.name == userLoginData.name &&
+            userData.password == userLoginData.password
+          );
+        })[0];
+
+        if (userExist) {
+          if (userSignedIn) {
+            const error = document.getElementById("error");
+            alert("Logowanie zakończone sukcesem!");
+            window.location.replace("./homeOnlinePage.html");
+            localStorage.setItem("userData_Name", userSignedIn.name);
+          } else {
+            error.innerHTML = "Nie prawidłowe hasło!";
+          }
+        } else {
+          error.innerHTML =
+            "Użytkownik o nazwie: " +
+            document.getElementById("name").value +
+            " nie istnieje!";
+        }
       }
     }
   </script>
