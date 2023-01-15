@@ -9,6 +9,7 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One"
       rel="stylesheet" /> -->
     <!-- <link rel="stylesheet" href="style.css" /> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
   </head>
 
   <body>
@@ -18,6 +19,12 @@
         document.write(localStorage.getItem("userData_Name"));
       </script>
     </h1>
+    <div>
+      <canvas id="pieChart"></canvas>
+    </div>
+    <div>
+      <canvas id="barChart"></canvas>
+    </div>
     <h2>Strona główna zalogowanego użytkownika</h2>
     <button onclick="signOut()">wyloguj się</button>
     <table id="transactions" border="1">
@@ -30,7 +37,71 @@
         <th>saldo</th>
       </tr>
     </table>
+    <p id="fetchError"></p>
   </body>
+
+  <script>
+    function roundTo(number) {
+      return Math.ceil(number);
+    }
+    const firstChartValue = roundTo(28.5714285714);
+    const secondChartValue = 71; //71.4285714286
+  </script>
+
+  <script>
+    let ctxPie = document.getElementById("pieChart").getContext("2d");
+    let pieChart = new Chart(ctxPie, {
+      type: "pie",
+      data: {
+        labels: ["Wpływy", "Wydatki"],
+        datasets: [
+          {
+            data: [firstChartValue, secondChartValue],
+            borderColor: ["#3cba9f", "#ffa500", "#c45850"],
+            backgroundColor: [
+              "rgb(60,186,159,0.1)",
+              "rgb(255,165,0,0.1)",
+              "rgb(196,88,80,0.1)",
+            ],
+            borderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          xAxes: [
+            {
+              display: false,
+            },
+          ],
+          yAxes: [
+            {
+              display: false,
+            },
+          ],
+        },
+      },
+    });
+  </script>
+  <script>
+    var ctxBar = document.getElementById("barChart").getContext("2d");
+    var barChart = new Chart(ctxBar, {
+      type: "bar",
+      data: {
+        labels: ["2022-11-09", "2022-11-10", "2022-11-12"],
+        datasets: [
+          {
+            data: [3000, 2555.55, 4337.25],
+            label: "Twoje saldo",
+            borderColor: "rgb(62,149,205)",
+            backgroundColor: "rgb(62,149,205,0.1)",
+            borderWidth: 2,
+          },
+        ],
+      },
+    });
+  </script>
+
   <script>
     function signOut() {
       localStorage.removeItem("userData_Name");
@@ -44,28 +115,31 @@
   <script>
     const apiUrl = "https://api.npoint.io/38edf0c5f3eb9ac768bd";
 
-    fetch(apiUrl)
+    fetch(apiUrl) 
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        for (var i = 1 && 0; i < data.transactions.length; i++) {
+        for (let i = 1 && 0; i < data.transactions.length; i++) {
           let date = data.transactions[i].date;
           let type = data.transactions[i].type;
           let description = data.transactions[i].description;
           let amount = data.transactions[i].amount;
           let balance = data.transactions[i].balance;
 
-          let typeCheck = typeOfTransaction();
+          let typeCheck = typeOfTransaction(type);
 
-          function typeOfTransaction() {
-            if (type === 1) {
-              return " Wpływy - inne";
-            } else if (type === 2) {
-              return "Wydatki - zakupy";
-            } else if (type === 3) {
-              return " Wpływy - wynagrodzenie";
-            } else if (type === 4) {
-              return " Wydatki - inne";
+          function typeOfTransaction(type) {
+            switch (type) {
+              case 1:
+                return "Wpływy - inne";
+              case 2:
+                return "Wydatki - zakupy";
+              case 3:
+                return "Wpływy - wynagrodzenie";
+              case 4:
+                return "Wydatki - inne";
+              default:
+                return "Invalid type";
             }
           }
 
@@ -78,6 +152,11 @@
                 <td>${balance}</td>
               </tr>`;
         }
+      })
+      .catch((error) => {
+        const fetchError = document.getElementById("fetchError");
+        fetchError.innerHTML =
+          "Wystąpił błąd z wyświetleniem tabeli: " + "<br><br>" + error;
       });
   </script>
 </html>
