@@ -83,9 +83,9 @@
 
         let userSignedIn = userFromLocalStorage.filter((userData) => {
           return (
-            userData.name == userLoginData.name ||
-            (userData.email == userLoginData.email &&
-              userData.password == userLoginData.password)
+            userData.name == userLoginData.name &&
+            userData.email == userLoginData.email &&
+            userData.password == userLoginData.password
           );
         })[0];
 

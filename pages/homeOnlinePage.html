@@ -13,32 +13,50 @@
   </head>
 
   <body>
-    <h1>
-      Hej
-      <script>
-        document.write(localStorage.getItem("userData_Name"));
-      </script>
-    </h1>
-    <div>
-      <canvas id="pieChart"></canvas>
+    <h2 id="errorUserNotLoggedIn"></h2>
+    <div id="mainContainer">
+      <h1>
+        Hej
+        <script>
+          document.write(localStorage.getItem("userData_Name"));
+        </script>
+      </h1>
+      <div>
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div>
+        <canvas id="barChart"></canvas>
+      </div>
+      <h2>Strona główna zalogowanego użytkownika</h2>
+      <button onclick="signOut()">wyloguj się</button>
+      <table id="transactions" border="1">
+        <tr>
+          <th>data</th>
+          <th>typ</th>
+          <!-- typ to ikona  -->
+          <th>opis</th>
+          <th>kwota</th>
+          <th>saldo</th>
+        </tr>
+      </table>
+      <p id="fetchError"></p>
     </div>
-    <div>
-      <canvas id="barChart"></canvas>
-    </div>
-    <h2>Strona główna zalogowanego użytkownika</h2>
-    <button onclick="signOut()">wyloguj się</button>
-    <table id="transactions" border="1">
-      <tr>
-        <th>data</th>
-        <th>typ</th>
-        <!-- typ to ikona  -->
-        <th>opis</th>
-        <th>kwota</th>
-        <th>saldo</th>
-      </tr>
-    </table>
-    <p id="fetchError"></p>
   </body>
+
+  <script>
+    const userNotLogged = localStorage.getItem("userData_Name");
+    const errorUserNotLoggedIn = document.getElementById(
+      "errorUserNotLoggedIn"
+    );
+    
+    if (!userNotLogged == "" || null) {
+      document.getElementById("mainContainer").removeAttribute("hidden");
+    } else {
+      document.getElementById("mainContainer").setAttribute("hidden", true);
+      errorUserNotLoggedIn.innerHTML =
+        "Brak danych do wyświetlenia: <br> Nie jesteś zalogowany";
+    }
+  </script>
 
   <script>
     function roundTo(number) {
@@ -115,10 +133,10 @@
   <script>
     const apiUrl = "https://api.npoint.io/38edf0c5f3eb9ac768bd";
 
-    fetch(apiUrl) 
+    fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         for (let i = 1 && 0; i < data.transactions.length; i++) {
           let date = data.transactions[i].date;
           let type = data.transactions[i].type;
