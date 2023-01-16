@@ -3,34 +3,43 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>Logowanie</title>
-    <!-- <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One"
-      rel="stylesheet" /> -->
-    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="../common/htmlStyle.css" />
+    <link rel="stylesheet" href="../common/buttonStyle.css" />
   </head>
   <body>
-    <div>
-      <h1>Ekran Logowania</h1>
-      <button onclick="goBack()">Powrót</button>
-      <form role="form" autocomplete="off">
-        <label>Nazwa użytkownika / Email:</label>
+    <div class="buttonsContainer">
+      <button class="button btn" onclick="goToRegistrationPage()">
+        <p class="titleOfButton">Rejestracja</p>
+      </button>
+    </div>
+    <div class="formContainer">
+      <form class="loginForm" role="form" autocomplete="off">
+        <label for="name">Nazwa użytkownika / Email:</label>
         <input
           type="text"
           id="name"
           placeholder="Enter name or Email"
           name="name"
         />
-        <label>Hasło:</label>
+        <p id="errorEmptyNameMessage"></p>
+        <label for="password">Hasło:</label>
         <input
           type="password"
           id="password"
           placeholder="Enter password"
           name="password"
         />
-        <button type="button" onclick="signIn()">Zaloguj</button>
-        <hr />
+        <p id="errorEmptyPasswordMessage"></p>
+        <button type="button" class="button btn" onclick="signIn()">
+          <p class="titleOfButton">Zaloguj</p>
+        </button>
         <p id="error"></p>
       </form>
     </div>
@@ -40,6 +49,12 @@
       const name = document.getElementById("name").value;
       const password = document.getElementById("password").value;
       const error = document.getElementById("error");
+      const errorEmptyPasswordMessage = document.getElementById(
+        "errorEmptyPasswordMessage"
+      );
+      const errorEmptyNameMessage = document.getElementById(
+        "errorEmptyNameMessage"
+      );
 
       const errorMessages = {
         name: "Pole nazwa użytkownika nie może być puste!",
@@ -47,11 +62,22 @@
       };
 
       const errorPassword =
-        password === "" ? (error.innerHTML = errorMessages.password) : false;
+        password === ""
+          ? (errorEmptyPasswordMessage.innerHTML = errorMessages.password)
+          : false;
       const errorName =
-        name === "" ? (error.innerHTML = errorMessages.name) : false;
+        name === ""
+          ? (errorEmptyNameMessage.innerHTML = errorMessages.name)
+          : false;
 
-      const validateRules = errorName || errorPassword;
+      const nameNotEmpty =
+        name !== "" && (errorEmptyNameMessage.innerHTML = null);
+      const passwordNotEmpty =
+        password !== "" && (errorEmptyPasswordMessage.innerHTML = null);
+
+      const validateRules =
+        errorName && nameNotEmpty && errorPassword && passwordNotEmpty;
+
       if (!validateRules) return true;
     }
   </script>
@@ -93,7 +119,7 @@
           if (userSignedIn) {
             const error = document.getElementById("error");
             alert("Logowanie zakończone sukcesem!");
-            window.location.replace("./homeOnlinePage.html");
+            window.location.replace("../profilePage/profilePage.html");
             localStorage.setItem("userData_Name", userSignedIn.name);
           } else {
             error.innerHTML = "Nie prawidłowe hasło!";
@@ -108,8 +134,8 @@
     }
   </script>
   <script>
-    function goBack() {
-      window.location.href = "./index.html";
+    function goToRegistrationPage() {
+      window.location.href = "../registrationPage/registrationPage.html";
     }
   </script>
 </html>

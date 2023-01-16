@@ -13,7 +13,7 @@
 
   <script>
     function goBack() {
-      window.location.href = "./index.html";
+      window.location.href = "../homePage/index.html";
     }
   </script>
   <body>
@@ -146,7 +146,7 @@
             })[0];
 
             localStorage.setItem("userData_Name", userSignedIn.name);
-            window.location.replace("./homeOnlinePage.html");
+            window.location.replace("../profilePage/profilePage.html");
             document.getElementById("name").focus();
             document.getElementById("email").focus();
           } else {

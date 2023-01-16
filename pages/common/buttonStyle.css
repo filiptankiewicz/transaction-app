@@ -1,0 +1,51 @@
+.buttonsContainer {
+  width: auto;
+  height: 95px;
+  padding: 0.2%;
+  background-color: rgba(12, 29, 105, 0.836);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+
+.button {
+  border-radius: 10px;
+  background-color: rgba(57, 76, 161, 0.836);
+  border: none;
+  padding: 8px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 4px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.btn {
+  background-color: rgb(250, 248, 248);
+  color: rgb(41, 41, 175);
+  align-self: center;
+}
+
+.btn:hover {
+  background-color: rgba(12, 29, 105, 0.836);
+
+  color: white;
+}
+
+.titleOfButton {
+  font-size: 14pt;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 425px) {
+  .buttonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+}

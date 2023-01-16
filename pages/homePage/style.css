@@ -1,0 +1,7 @@
+.backgroundTheme {
+    background-image: url("../../assets/backgroundTheme.png");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
