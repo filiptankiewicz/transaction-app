@@ -21,26 +21,32 @@
     </div>
     <div class="formContainer">
       <form class="loginForm" role="form" autocomplete="off">
-        <label for="name">Nazwa użytkownika / Email:</label>
-        <input
-          type="text"
-          id="name"
-          placeholder="Enter name or Email"
-          name="name"
-        />
-        <p id="errorEmptyNameMessage"></p>
-        <label for="password">Hasło:</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Enter password"
-          name="password"
-        />
-        <p id="errorEmptyPasswordMessage"></p>
-        <button type="button" class="button btn" onclick="signIn()">
-          <p class="titleOfButton">Zaloguj</p>
-        </button>
-        <p id="error"></p>
+        <div class="inputsContainer">
+          <div class="labelContainer">
+            <label class="label" for="name">Nazwa użytkownika / Email:</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter name or Email"
+              name="name"
+            />
+          </div>
+          <p id="errorEmptyNameMessage"></p>
+          <div class="labelContainer">
+            <label class="label" for="password">Hasło:</label>
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              name="password"
+            />
+          </div>
+          <p id="error"></p>
+          <button type="button" class="button btn" onclick="signIn()">
+            <p class="titleOfButton">Zaloguj</p>
+          </button>
+        </div>
       </form>
     </div>
   </body>
@@ -49,9 +55,6 @@
       const name = document.getElementById("name").value;
       const password = document.getElementById("password").value;
       const error = document.getElementById("error");
-      const errorEmptyPasswordMessage = document.getElementById(
-        "errorEmptyPasswordMessage"
-      );
       const errorEmptyNameMessage = document.getElementById(
         "errorEmptyNameMessage"
       );
@@ -62,9 +65,7 @@
       };
 
       const errorPassword =
-        password === ""
-          ? (errorEmptyPasswordMessage.innerHTML = errorMessages.password)
-          : false;
+        password === "" ? (error.innerHTML = errorMessages.password) : false;
       const errorName =
         name === ""
           ? (errorEmptyNameMessage.innerHTML = errorMessages.name)
@@ -72,11 +73,8 @@
 
       const nameNotEmpty =
         name !== "" && (errorEmptyNameMessage.innerHTML = null);
-      const passwordNotEmpty =
-        password !== "" && (errorEmptyPasswordMessage.innerHTML = null);
 
-      const validateRules =
-        errorName && nameNotEmpty && errorPassword && passwordNotEmpty;
+      const validateRules = errorName || nameNotEmpty || errorPassword;
 
       if (!validateRules) return true;
     }
@@ -101,9 +99,39 @@
                 document.getElementById("name").value.toLowerCase()
           );
 
+        const errorMessages = {
+          emailNotExistYet:
+            "Podana nazwa lub email jest wolny, załóż konto i dołącz do Nas!",
+          invalidPassword: "Nie prawidłowe hasło!",
+          userNotExist:
+            "Użytkownik o nazwie: " +
+            document.getElementById("name").value +
+            " nie istnieje!",
+        };
+
+        const errorEmailNotExistYet = document.getElementById(
+          "errorEmptyNameMessage"
+        );
+
+        const ruleOfUser = {
+          ruleOfUserWithNameOrEmail:
+            (userFromLocalStorage &&
+              userFromLocalStorage.length > 0 &&
+              document.getElementById("name").value ==
+                userFromLocalStorage[0].name) ||
+            document.getElementById("name").value ==
+              userFromLocalStorage[0].name
+              ? (errorEmailNotExistYet.innerHTML = null)
+              : (errorEmailNotExistYet.innerHTML =
+                  errorMessages.emailNotExistYet)
+              ? userFromLocalStorage[0].email
+              : (errorEmailNotExistYet.innerHTML =
+                  errorMessages.emailNotExistYet),
+        };
+
         let userLoginData = {
           name: document.getElementById("name").value,
-          email: userFromLocalStorage[0].email,
+          email: ruleOfUser.ruleOfUserWithNameOrEmail,
           password: document.getElementById("password").value,
         };
 
@@ -122,13 +150,10 @@
             window.location.replace("../profilePage/profilePage.html");
             localStorage.setItem("userData_Name", userSignedIn.name);
           } else {
-            error.innerHTML = "Nie prawidłowe hasło!";
+            error.innerHTML = errorMessages.invalidPassword;
           }
         } else {
-          error.innerHTML =
-            "Użytkownik o nazwie: " +
-            document.getElementById("name").value +
-            " nie istnieje!";
+          error.innerHTML = errorMessages.userNotExist;
         }
       }
     }
