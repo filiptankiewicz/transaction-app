@@ -27,7 +27,7 @@
             <input
               type="text"
               id="name"
-              placeholder="Enter name or Email"
+              placeholder="Nazwa użytkownika / Email.."
               name="name"
             />
           </div>
@@ -38,7 +38,7 @@
             <input
               type="password"
               id="password"
-              placeholder="Enter password"
+              placeholder="Hasło.."
               name="password"
             />
           </div>
@@ -106,27 +106,33 @@
           userNotExist:
             "Użytkownik o nazwie: " +
             document.getElementById("name").value +
-            " nie istnieje!",
+            " jeszcze nie istnieje!",
         };
 
         const errorEmailNotExistYet = document.getElementById(
           "errorEmptyNameMessage"
         );
 
-        const ruleOfUser = {
-          ruleOfUserWithNameOrEmail:
+        let ruleOfUserWithNameOrEmail;
+        for (let i = 1 && 0; i < userFromLocalStorage.length; i++) {
+          if (
             (userFromLocalStorage &&
               userFromLocalStorage.length > 0 &&
               document.getElementById("name").value ==
-                userFromLocalStorage[0].name) ||
+                userFromLocalStorage[i].name) ||
             document.getElementById("name").value ==
-              userFromLocalStorage[0].name
-              ? (errorEmailNotExistYet.innerHTML = null)
-              : (errorEmailNotExistYet.innerHTML =
-                  errorMessages.emailNotExistYet)
-              ? userFromLocalStorage[0].email
-              : (errorEmailNotExistYet.innerHTML =
-                  errorMessages.emailNotExistYet),
+              userFromLocalStorage[i].name
+          ) {
+            errorEmailNotExistYet.innerHTML = null;
+            ruleOfUserWithNameOrEmail = userFromLocalStorage[i].email;
+            break;
+          } else {
+            errorEmailNotExistYet.innerHTML = errorMessages.emailNotExistYet;
+          }
+        }
+
+        const ruleOfUser = {
+          ruleOfUserWithNameOrEmail: ruleOfUserWithNameOrEmail,
         };
 
         let userLoginData = {

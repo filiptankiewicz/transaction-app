@@ -15,7 +15,7 @@
 .loginForm {
   border-radius: 10px;
   width: 70%;
-  height: 60%;
+  height: 70%;
   display: flex;
   background-image: linear-gradient(
     rgb(44, 66, 165),
@@ -56,6 +56,11 @@
   align-content: center;
 }
 
+.fa-check-circle {
+    margin: 5px;
+    color: rgb(13, 255, 25);
+}
+
 input {
   padding: 12px 20px;
   margin: 12px 0;
@@ -70,7 +75,10 @@ input {
 }
 
 #error,
-#errorEmptyNameMessage {
+#errorNameField,
+#errorPasswordField,
+#errorEmailField,
+#errorRepeatEmailField {
   font-size: 11pt;
   letter-spacing: 1.25px;
   padding-top: 12px;
@@ -82,12 +90,15 @@ input {
 @media screen and (max-width: 425px) and (max-width: 768px) and (max-width: 1024px) and (max-width: 1440px) {
   .loginForm {
     width: 80%;
-    height: 60%;
+    height: 75%;
     align-items: center;
     justify-content: center;
   }
   #error,
-  #errorEmptyNameMessage {
+  #errorNameField,
+  #errorPasswordField,
+  #errorEmailField,
+  #errorRepeatEmailField {
     font-size: 10pt;
     text-align: center;
     width: 90%;
