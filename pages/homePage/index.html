@@ -2,31 +2,30 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Transaction App</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300"
+      rel="stylesheet"
+      type="text/css"
+    />
     <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="../common//htmlStyle.css" />
-    <link rel="stylesheet" href="../common/buttonStyle.css"/>
-    
+    <link rel="stylesheet" href="../common/htmlStyle.css" />
+    <link rel="stylesheet" href="../common/buttonStyle.css" />
+    <script
+      type="text/javascript"
+      src="../../helpers/navigation/index.js"
+    ></script>
   </head>
 
-  <script>
-    function goToLoginPage() {
-      window.location.href = "../loginPage/loginPage.html";
-    }
-    function goToRegistrationPage() {
-      window.location.href = "../registrationPage/registrationPage.html";
-    }
-  </script>
-
   <body>
-    
     <div class="buttonsContainer">
-    
-    <button class="button btn" onclick="goToLoginPage()"><p class="titleOfButton">Logowanie</p></button>
-    <button class="button btn" onclick="goToRegistrationPage()"><p class="titleOfButton">Rejestracja</p></button>
+      <button class="button btn" onclick="goToLoginPage()">
+        <p class="titleOfButton">Logowanie</p>
+      </button>
+      <button class="button btn" onclick="goToRegistrationPage()">
+        <p class="titleOfButton">Rejestracja</p>
+      </button>
     </div>
     <div class="backgroundTheme"></div>
   </body>

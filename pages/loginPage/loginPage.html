@@ -12,6 +12,18 @@
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="../common/htmlStyle.css" />
     <link rel="stylesheet" href="../common/buttonStyle.css" />
+    <script
+      type="text/javascript"
+      src="../../helpers/navigation/index.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../../helpers/validation/loginValidation/index.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../../helpers/webStorage/signIn/index.js"
+    ></script>
   </head>
   <body>
     <div class="buttonsContainer">
@@ -50,123 +62,4 @@
       </form>
     </div>
   </body>
-  <script>
-    function validateFields() {
-      const name = document.getElementById("name").value;
-      const password = document.getElementById("password").value;
-      const error = document.getElementById("error");
-      const errorEmptyNameMessage = document.getElementById(
-        "errorEmptyNameMessage"
-      );
-
-      const errorMessages = {
-        name: "Pole nazwa użytkownika nie może być puste!",
-        password: "Pole hasło nie może być puste!",
-      };
-
-      const errorPassword =
-        password === "" ? (error.innerHTML = errorMessages.password) : false;
-      const errorName =
-        name === ""
-          ? (errorEmptyNameMessage.innerHTML = errorMessages.name)
-          : false;
-
-      const nameNotEmpty =
-        name !== "" && (errorEmptyNameMessage.innerHTML = null);
-
-      const validateRules = errorName || nameNotEmpty || errorPassword;
-
-      if (!validateRules) return true;
-    }
-  </script>
-  <script>
-    function signIn() {
-      let validate = validateFields();
-      if (validate) {
-        let userFromLocalStorage = JSON.parse(
-          localStorage.getItem("allUsersData")
-        )
-          ? JSON.parse(localStorage.getItem("allUsersData"))
-          : [];
-
-        let userExist =
-          userFromLocalStorage.length &&
-          JSON.parse(localStorage.getItem("allUsersData")).some(
-            (data) =>
-              data.name.toLowerCase() ==
-                document.getElementById("name").value.toLowerCase() ||
-              data.email.toLowerCase() ==
-                document.getElementById("name").value.toLowerCase()
-          );
-
-        const errorMessages = {
-          emailNotExistYet:
-            "Podana nazwa lub email jest wolny, załóż konto i dołącz do Nas!",
-          invalidPassword: "Nie prawidłowe hasło!",
-          userNotExist:
-            "Użytkownik o nazwie: " +
-            document.getElementById("name").value +
-            " jeszcze nie istnieje!",
-        };
-
-        const errorEmailNotExistYet = document.getElementById(
-          "errorEmptyNameMessage"
-        );
-
-        let ruleOfUserWithNameOrEmail;
-        for (let i = 1 && 0; i < userFromLocalStorage.length; i++) {
-          if (
-            (userFromLocalStorage &&
-              userFromLocalStorage.length > 0 &&
-              document.getElementById("name").value ==
-                userFromLocalStorage[i].name) ||
-            document.getElementById("name").value ==
-              userFromLocalStorage[i].name
-          ) {
-            errorEmailNotExistYet.innerHTML = null;
-            ruleOfUserWithNameOrEmail = userFromLocalStorage[i].email;
-            break;
-          } else {
-            errorEmailNotExistYet.innerHTML = errorMessages.emailNotExistYet;
-          }
-        }
-
-        const ruleOfUser = {
-          ruleOfUserWithNameOrEmail: ruleOfUserWithNameOrEmail,
-        };
-
-        let userLoginData = {
-          name: document.getElementById("name").value,
-          email: ruleOfUser.ruleOfUserWithNameOrEmail,
-          password: document.getElementById("password").value,
-        };
-
-        let userSignedIn = userFromLocalStorage.filter((userData) => {
-          return (
-            userData.name == userLoginData.name &&
-            userData.email == userLoginData.email &&
-            userData.password == userLoginData.password
-          );
-        })[0];
-
-        if (userExist) {
-          if (userSignedIn) {
-            const error = document.getElementById("error");
-            alert("Logowanie zakończone sukcesem!");
-            window.location.replace("../profilePage/profilePage.html");
-            localStorage.setItem("userData_Name", userSignedIn.name);
-          } else {
-            error.innerHTML = errorMessages.invalidPassword;
-          }
-        } else {
-          error.innerHTML = errorMessages.userNotExist;
-        }
-      }
-    }
-  </script>
-  <script>
-    function goToRegistrationPage() {
-      window.location.href = "../registrationPage/registrationPage.html";
-    }
-  </script>
 </html>
