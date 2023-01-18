@@ -27,23 +27,23 @@
   </head>
 
   <body>
-    <div class="buttonsContainer">
-      <div>
-        <p class="userName">
-          Hej
-          <script>
-            document.write(localStorage.getItem("userData_Name"));
-          </script>
-        </p>
-      </div>
-      <div>
-        <button class="button btn" onclick="signOut()">
-          <p class="titleOfButton">Wyloguj się</p>
-        </button>
-      </div>
-    </div>
     <h2 id="errorUserNotLoggedIn"></h2>
     <div id="mainContainer">
+      <div class="buttonsContainer">
+        <div>
+          <p class="userName">
+            Hej
+            <script>
+              document.write(localStorage.getItem("userData_Name"));
+            </script>
+          </p>
+        </div>
+        <div>
+          <button class="button btn" onclick="signOut()">
+            <p class="titleOfButton">Wyloguj się</p>
+          </button>
+        </div>
+      </div>
       <div class="chartsContainer">
         <div class="pieChartContainer">
           <canvas id="pieChart"></canvas>
