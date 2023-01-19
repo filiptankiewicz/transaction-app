@@ -2,7 +2,7 @@ const loginHTML = `<div class="formContainer">
 <form class="loginForm" role="form" autocomplete="off">
   <div class="inputsContainer">
     <div class="labelContainer">
-      <label class="label" for="name">Nazwa użytkownika / Email:</label>
+      <label class="label" for="name">Nazwa użytkownika</label>
       <input
         type="text"
         id="loginName"

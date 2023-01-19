@@ -2,24 +2,6 @@
     margin: 0;
     box-sizing: border-box;
   }
-  
-  /* body,
-  html {
-    width: 100%;
-    -webkit-overflow-scrolling: touch;
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-    height: calc(100% + env(safe-area-inset-top));
-  }
-  
-  body {
-    overflow-x: hidden;
-    -ms-overflow-style: scrollbar;
-    -webkit-font-smoothing: antialiased;
-  }
-   */
 
 .buttonsContainer {
     width: auto;
@@ -27,7 +9,7 @@
     padding: 0.2%;
     background-color: rgba(12, 29, 105, 0.836);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     align-content: center;
   }
@@ -138,21 +120,6 @@ p.userName {
 }
 
 @media screen and (max-width: 425px) and (max-width: 1024px) and (max-width: 1440px){
-    /* body,
-    html {
-      width: 100%;
-      -webkit-overflow-scrolling: touch;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
-      height: calc(100% + env(safe-area-inset-top));
-    }
-    
-    body {
-      -ms-overflow-style: scrollbar;
-      -webkit-font-smoothing: antialiased;
-    } */
     .buttonsContainer {
         width: 100%;
         display: flex;

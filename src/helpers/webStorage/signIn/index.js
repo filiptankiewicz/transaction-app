@@ -81,10 +81,8 @@ function signIn() {
     if (userExist) {
       if (userSignedIn) {
         alert("Logowanie zakończone sukcesem!");
-
-        // run new routing
+        
         goToUserProfilePage();
-
 
         localStorage.setItem(localStorageSelectors.userDataName, userSignedIn.name);
       } else {

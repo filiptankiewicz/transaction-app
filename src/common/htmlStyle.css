@@ -22,7 +22,7 @@ body {
 
 .formContainer {
   display: flex;
-  background-image: url("../assets/backgroundTheme.jpg");
+  background-image: url("../assets/backgroundTheme.png");
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;

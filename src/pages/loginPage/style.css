@@ -17,7 +17,7 @@
 }
 
 .label {
-  font-size: 12pt;
+  font-size: 14pt;
   margin: 0;
   padding: 0;
   letter-spacing: 0.5px;
@@ -56,8 +56,8 @@ input {
   color: white;
 }
 
-#error,
-#errorEmptyNameMessage {
+#loginError,
+#loginErrorEmptyNameMessage{
   font-size: 11pt;
   letter-spacing: 1.25px;
   padding-top: 12px;
@@ -73,8 +73,8 @@ input {
     align-items: center;
     justify-content: center;
   }
-  #error,
-  #errorEmptyNameMessage {
+  #loginError,
+  #loginErrorEmptyNameMessage {
     font-size: 10pt;
     text-align: center;
     width: 90%;

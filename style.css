@@ -1,15 +1,7 @@
-.backgroundTheme {
-    background-image: url("./src/assets/backgroundTheme.jpg");
-    height: 100%; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 #root{
     height: 100%;
 }
 
-*{
+* {
     font-family: "Open Sans";
 }
