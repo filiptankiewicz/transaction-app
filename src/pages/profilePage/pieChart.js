@@ -1,4 +1,5 @@
-let ctxPie = document.getElementById("pieChart").getContext("2d");
+function createPieChart(){
+  let ctxPie = document.getElementById("pieChart").getContext("2d");
     let pieChart = new Chart(ctxPie, {
       type: "pie",
       data: {
@@ -33,3 +34,4 @@ let ctxPie = document.getElementById("pieChart").getContext("2d");
         },
       },
     });
+  }

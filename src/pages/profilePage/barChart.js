@@ -1,5 +1,6 @@
-var ctxBar = document.getElementById("barChart").getContext("2d");
-    var barChart = new Chart(ctxBar, {
+function createBarChart(){
+  const ctxBar = document.getElementById("barChart").getContext("2d");
+    const barChart = new Chart(ctxBar, {
       type: "bar",
       data: {
         labels: ["2022-11-09", "2022-11-10", "2022-11-12"],
@@ -18,3 +19,4 @@ var ctxBar = document.getElementById("barChart").getContext("2d");
         maintainAspectRatio: false,
       },
     });
+}

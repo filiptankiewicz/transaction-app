@@ -3,207 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Transaction App</title> <!-- create fancy name / create logo for it-->
+    <title>Transaction App</title>
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300"
       rel="stylesheet"
       type="text/css"
     />
-    <!-- add favicon !-->
+
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./src/common/htmlStyle.css" />
     <link rel="stylesheet" href="./src/common/buttonStyle.css" />
-
-
     <link rel="stylesheet" href="./src/pages/loginPage/style.css" />
     <link rel="stylesheet" href="./src/pages/profilePage/style.css" />
     <link rel="stylesheet" href="./src/pages/registrationPage/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css" />
 
-    <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300"
-    rel="stylesheet"
-    type="text/css"
-  />
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-
-  <script
-    type="text/javascript"
-    src="./src/helpers/webStorage/signOut/index.js"
-  ></script>
-  <script
-    type="text/javascript"
-    src="./src/helpers/navigation/index.js"
-  ></script>
-  <script
-    type="text/javascript"
-    src="./src/helpers/webStorage/signOut/index.js"
-  ></script>
-  
-    <!-- consider to move to bottom of the page -->
+    <script type="text/javascript" src="./src/pages/loginPage/index.js" ></script>
+    <script type="text/javascript" src="./src/pages/homePage/index.js" ></script>
+    <script type="text/javascript" src="./src/pages/profilePage/index.js" ></script>
+    <script type="text/javascript" src="./src/pages/registrationPage/index.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script type="text/javascript" src="./src/helpers/webStorage/signOut/index.js"></script>
+    <script type="text/javascript" src="./src/helpers/webStorage/signOut/index.js"></script>
   </head>
 
-  <body> <!-- 
+  <body> 
+    <!-- MENU -->
+  
+    <div id="root"></div>
     
-    BEM BLOCK ELEMENT MODIFIYER 
-    BLOCK sing-in-page_container_singOut 
-    design tokeny (OLA?)
-    -->
-<!-- MENU -->
-    <div class="buttonsContainer">
-      <button class="button btn" id="signInButton">
-        <p class="titleOfButton">Logowanie</p>
-      </button>
-      <button class="button btn" id="signUpButton">
-        <p class="titleOfButton">Rejestracja</p>
-      </button>
-    </div>
+    <!-- LOGIN PAGE -->
+    <script type="text/javascript" src="./src/helpers/validation/loginValidation/index.js"></script>
+    <script type="text/javascript" src="./src/helpers/webStorage/signIn/index.js"></script>
+    <!-- LOGIN PAGE END -->
 
-<!-- LOGIN PAGE -->
-      <div class="formContainer">
-        <form class="loginForm" role="form" autocomplete="off">
-          <div class="inputsContainer">
-            <div class="labelContainer">
-              <label class="label" for="name">Nazwa użytkownika / Email:</label>
-              <input
-                type="text"
-                id="loginName"
-                placeholder="Nazwa użytkownika / Email.."
-                name="name"
-              />
-            </div>
-            <p id="loginErrorEmptyNameMessage"></p>
-            <div class="labelContainer">
-              <label class="label" for="password">Hasło:</label>
+    <!-- REGISTRATION START -->
+      <script type="text/javascript" src="./src/helpers/webStorage/signUp/index.js"></script> 
+      <script type="text/javascript" src="./src/helpers/validation/registrationValidation/index.js"></script> 
+    <!-- REGISTRATION END -->
+
+    <!-- PROFILE PAGE START -->
+    <script type="text/javascript" src="./src/helpers/webStorage/signOut/index.js"></script>
+    <script type="text/javascript" src="./src/helpers/navigation/index.js"></script>
+    <script type="text/javascript" src="./src/helpers/webStorage/signOut/index.js"></script>
+    <script type="text/javascript" src="./src/pages/profilePage/userNotLogged.js"></script>
+    <script type="text/javascript" src="./src/pages/profilePage/roundTo.js"></script>
+    <script type="text/javascript" src="./src/pages/profilePage/pieChart.js"></script>
+    <script type="text/javascript" src="./src/pages/profilePage/barChart.js"></script>
+    <script type="text/javascript" src="./src/pages/profilePage/callToAPI.js"></script> 
+    <!-- PROFILE PAGE END -->
   
-              <input
-                type="password"
-                id="loginPassword"
-                placeholder="Hasło.."
-                name="password"
-              />
-            </div>
-            <p id="loginError"></p>
-            <button type="button" class="button btn" id="loginButton">
-              <p class="titleOfButton">Zaloguj</p>
-            </button>
-          </div>
-        </form>
-      </div> 
-      <script type="text/javascript" src="./src/helpers/validation/loginValidation/index.js"></script>
-      <script type="text/javascript" src="./src/helpers/navigation/index.js"></script>
-      <script type="text/javascript" src="./src/helpers/webStorage/signIn/index.js"></script>
-
-<!-- REGISTRATION START -->
-
-   <div class="formContainer">
-    <form
-      class="loginForm"
-      id="form"
-      role="form"
-      onsubmit="return false"
-      autocomplete="off"
-    >
-      <div class="inputsContainer">
-        <div class="labelContainer">
-          <label class="label" for="name">Nazwa użytkownika</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Nazwa użytkownika.."
-            name="name"
-          />
-        </div>
-        <p id="errorNameField"></p>
-        <div class="labelContainer">
-          <label class="label" for="password">Hasło</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Hasło.."
-            name="password"
-          />
-        </div>
-        <p id="errorPasswordField"></p>
-        <div class="labelContainer">
-          <label class="label" for="email">Email</label>
-          <input type="text" id="email" placeholder="Email.." name="email" />
-        </div>
-        <p id="errorEmailField"></p>
-        <div class="labelContainer">
-          <label class="label" for="repeatEmail">Potwierdź email</label>
-          <input
-            type="text"
-            id="repeatEmail"
-            placeholder="Potwierdź email.."
-            name="repeatEmail"
-          />
-        </div>
-        <p id="errorRepeatEmailField"></p>
-        <p id="error"></p>
-        <button type="button" class="button btn" id="registerButton">
-          <p class="titleOfButton">Zarejestruj</p>
-        </button>
-      </div>
-    </form>
-  </div>
-  
-  <script type="text/javascript" src="./src/helpers/webStorage/signUp/index.js"></script> 
-  <script type="text/javascript" src="./src/helpers/validation/registrationValidation/index.js"></script> 
-
-<!-- REGISTRATION END -->
-
-<!-- PROFILE PAGE START -->
-<h2 id="errorUserNotLoggedIn"></h2>
-<div id="mainContainer">
-  <div class="buttonsContainer">
-    <div>
-      <p class="userName">
-        Hej
-        <script>
-          document.write(localStorage.getItem("userData_Name"));
-        </script>
-      </p>
-    </div>
-    <div>
-      <button class="button btn" onclick="signOut()">
-        <p class="titleOfButton">Wyloguj się</p>
-      </button>
-    </div>
-  </div>
-  <div class="chartsContainer">
-    <div class="pieChartContainer">
-      <canvas id="pieChart"></canvas>
-    </div>
-    <div class="barChartContainer">
-      <canvas id="barChart"></canvas>
-    </div>
-  </div>
-  <div class="transactionsContainer">
-    <table class="tableContainer" id="transactions" border="1">
-      <thead>
-        <th>data</th>
-        <th>typ</th>
-        <!-- typ to ikona -->
-        <th>opis</th>
-        <th>kwota</th>
-        <th>saldo</th>
-      </thead>
-    </table>
-  </div>
-  <p id="fetchError"></p>
-</div>
-<script type="text/javascript" src="./src/helpers/webStorage/signOut/index.js"></script>
-<script type="text/javascript" src="./src/helpers/navigation/index.js"></script>
-<script type="text/javascript" src="./src/helpers/webStorage/signOut/index.js"></script>
-<script type="text/javascript" src="./src/pages/profilePage/userNotLogged.js"></script>
-<script type="text/javascript" src="./src/pages/profilePage/roundTo.js"></script>
-<script type="text/javascript" src="./src/pages/profilePage/pieChart.js"></script>
-<script type="text/javascript" src="./src/pages/profilePage/barChart.js"></script>
-<script type="text/javascript" src="./src/pages/profilePage/callToAPI.js"></script> 
-<!-- PROFILE PAGE END -->
-  
-    <div class="backgroundTheme"></div>
     <script type="text/javascript" src="./src/index.js" ></script>
   </body>
 </html>

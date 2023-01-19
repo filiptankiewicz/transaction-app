@@ -48,4 +48,4 @@ function callToAPI() {
           "Wystąpił błąd z wyświetleniem tabeli: " + "<br><br>" + error;
       });
   }
-  callToAPI();
+  
