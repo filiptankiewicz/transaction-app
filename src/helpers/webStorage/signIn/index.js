@@ -1,35 +1,40 @@
 function signIn() {
-  let validate = validateFieldsLogin();
+
+  const selectors = {
+    loginName: document.getElementById("loginName"),
+    password: document.getElementById("loginPassword"),
+    loginError: document.getElementById("loginError"),
+    errorEmailNotExistYet: document.getElementById("loginErrorEmptyNameMessage")
+  }
+
+  const localStorageSelectors = {
+    allUserData: "allUsersData",
+    userDataName: "userData_Name",
+  }
+
+
+  const errorMessages = {
+    emailNotExistYet: "Podana nazwa lub email jest wolny, załóż konto i dołącz do Nas!",
+    invalidPassword: "Nie prawidłowe hasło!",
+    userNotExist: `Użytkownik o nazwie: ${selectors.loginName.value} jeszcze nie istnieje!`,
+  };
+
+  const validate = validateFieldsLogin();
+
   if (validate) {
-    let userFromLocalStorage = JSON.parse(localStorage.getItem("allUsersData"))
-      ? JSON.parse(localStorage.getItem("allUsersData"))
-      : [];
 
-    let userExist =
-      userFromLocalStorage.length &&
-      JSON.parse(localStorage.getItem("allUsersData")).some(
-        (data) =>
-          data.name.toLowerCase() ==
-            document.getElementById("loginName").value.toLowerCase() ||
-          data.email.toLowerCase() ==
-            document.getElementById("loginName").value.toLowerCase()
-      );
+    const allUserData = localStorage.getItem(localStorageSelectors.allUserData);
+    const userParse = JSON.parse(allUserData);
 
-    const errorMessages = {
-      emailNotExistYet:
-        "Podana nazwa lub email jest wolny, załóż konto i dołącz do Nas!",
-      invalidPassword: "Nie prawidłowe hasło!",
-      userNotExist:
-        "Użytkownik o nazwie: " +
-        document.getElementById("loginName").value +
-        " jeszcze nie istnieje!",
-    };
+    const userFromLocalStorage = userParse ? userParse  : [];
 
-    const errorEmailNotExistYet = document.getElementById(
-      "loginErrorEmptyNameMessage"
-    );
+    const condition = (data) => data.name.toLowerCase() === selectors.loginName.value.toLowerCase() || data.email.toLowerCase() === selectors.loginName.value.toLowerCase();
+   
+    const userExist = userFromLocalStorage.length && userParse.some(condition);
 
-    const emptyLocalStorage = localStorage.getItem("allUsersData");
+    const errorEmailNotExistYet = selectors.errorEmailNotExistYet;
+
+    const emptyLocalStorage = allUserData;
 
     let ruleOfUserWithNameOrEmail;
     if (!emptyLocalStorage == "" || null) {
@@ -37,9 +42,9 @@ function signIn() {
         if (
           (userFromLocalStorage &&
             userFromLocalStorage.length > 0 &&
-            document.getElementById("loginName").value ==
+            selectors.loginName.value ==
               userFromLocalStorage[i].name) ||
-          document.getElementById("loginName").value == userFromLocalStorage[i].name
+              selectors.loginName.value == userFromLocalStorage[i].name
         ) {
           errorEmailNotExistYet.innerHTML = null;
           ruleOfUserWithNameOrEmail = userFromLocalStorage[i].email;
@@ -56,26 +61,32 @@ function signIn() {
       ruleOfUserWithNameOrEmail: ruleOfUserWithNameOrEmail,
     };
 
-    let userLoginData = {
-      name: document.getElementById("loginName").value,
+    const userLoginData = {
+      name: selectors.loginName.value,
       email: ruleOfUser.ruleOfUserWithNameOrEmail,
-      password: document.getElementById("loginPassword").value,
+      password: selectors.password.value,
     };
 
-    let userSignedIn = userFromLocalStorage.filter((userData) => {
-      return (
+
+    const findUsers = (userData) => (
         userData.name == userLoginData.name &&
         userData.email == userLoginData.email &&
         userData.password == userLoginData.password
-      );
-    })[0];
+    );
+    
+    const userSignedIn = userFromLocalStorage.filter(findUsers)[0];
+
+    const error = selectors.loginError;
 
     if (userExist) {
       if (userSignedIn) {
-        const error = document.getElementById("error");
         alert("Logowanie zakończone sukcesem!");
+
+        // run new routing
         goToUserProfilePage();
-        localStorage.setItem("userData_Name", userSignedIn.name);
+
+
+        localStorage.setItem(localStorageSelectors.userDataName, userSignedIn.name);
       } else {
         error.innerHTML = errorMessages.invalidPassword;
       }

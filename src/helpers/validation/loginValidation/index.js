@@ -1,26 +1,24 @@
 function validateFieldsLogin() {
-  const name = document.getElementById("loginName").value;
-  const password = document.getElementById("loginPassword").value;
-  const error = document.getElementById("loginError");
-  const errorEmptyNameMessage = document.getElementById(
-    "loginErrorEmptyNameMessage"
-  );
+
+  const selectors = {
+    name: document.getElementById("loginName").value,
+    password: document.getElementById("loginPassword").value,
+    error: document.getElementById("loginError"),
+    errorEmptyNameMessage: document.getElementById("loginErrorEmptyNameMessage")
+  }
 
   const errorMessages = {
     name: "Pole nazwa użytkownika nie może być puste!",
     password: "Pole hasło nie może być puste!",
   };
 
-  const errorPassword =
-    password === "" ? (error.innerHTML = errorMessages.password) : false;
-  const errorName =
-    name === ""
-      ? (errorEmptyNameMessage.innerHTML = errorMessages.name)
-      : false;
+  const errorName = selectors.name === "" ? (selectors.errorEmptyNameMessage.innerHTML = errorMessages.name) : false;
 
-  const nameNotEmpty = name !== "" && (errorEmptyNameMessage.innerHTML = null);
+  const nameNotEmpty = selectors.name !== "" && (selectors.errorEmptyNameMessage.innerHTML = null);
+
+  const errorPassword = selectors.password === "" ? (selectors.error.innerHTML = errorMessages.password) : false;
 
   const validateRules = errorName || nameNotEmpty || errorPassword;
 
-  if (!validateRules) return true;
+  return !validateRules;
 }
