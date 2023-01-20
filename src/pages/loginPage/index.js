@@ -1,4 +1,11 @@
-const loginHTML = `<div class="formContainer">
+const loginHTML = `<div><div class="buttonsContainer">
+<button class="button btn" id="signInButton">
+  <p class="titleOfButton">Logowanie</p>
+</button>
+<button class="button btn" id="signUpButton">
+  <p class="titleOfButton">Rejestracja</p>
+</button>
+</div></div><div class="formContainer">
 <form class="loginForm" role="form" autocomplete="off">
   <div class="inputsContainer">
     <div class="labelContainer">

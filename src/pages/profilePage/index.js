@@ -22,12 +22,11 @@ const profileHTML = `<h2 id="errorUserNotLoggedIn"></h2>
   <div class="transactionsContainer">
     <table class="tableContainer" id="transactions" border="1">
       <thead>
-        <th>data</th>
-        <th>typ</th>
-        <!-- typ to ikona -->
-        <th>opis</th>
-        <th>kwota</th>
-        <th>saldo</th>
+        <th>data <i class="fa fa-calendar" aria-hidden="true"></i></th>
+        <th>typ <i class="fa fa-tasks" aria-hidden="true"></i></th>
+        <th>opis <i class="fa fa-info" aria-hidden="true"></i></th>
+        <th>kwota <i class="fa fa-money" aria-hidden="true"></i></th>
+        <th>saldo <i class="fa fa-balance-scale" aria-hidden="true"></i></th>
       </thead>
     </table>
   </div>

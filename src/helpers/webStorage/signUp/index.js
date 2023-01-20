@@ -36,6 +36,5 @@ function signUp() {
     } else {
       error.innerHTML = "Konto o takiej nazwie lub emailu juz istnieje!";
     }
-    data.preventDefault();
   }
 }

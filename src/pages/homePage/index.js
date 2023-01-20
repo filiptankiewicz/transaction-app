@@ -1,4 +1,4 @@
-const homeHTML = `<div><div class="buttonsContainer">
+const homeHTML = `<div class="backgroundTheme"><div class="buttonsContainer">
 <button class="button btn" id="signInButton">
   <p class="titleOfButton">Logowanie</p>
 </button>

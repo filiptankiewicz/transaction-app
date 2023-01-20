@@ -1,4 +1,11 @@
-const registrationHTML = `<div class="formContainer">
+const registrationHTML = `<div><div class="buttonsContainer">
+<button class="button btn" id="signInButton">
+  <p class="titleOfButton">Logowanie</p>
+</button>
+<button class="button btn" id="signUpButton">
+  <p class="titleOfButton">Rejestracja</p>
+</button>
+</div></div><div class="formContainer">
   <form
     class="loginForm"
     id="form"
