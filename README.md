@@ -2,6 +2,6 @@
 
 Transaction App
 
-Welcome to the transaction app.
-To launch the app, open the file named index.html.
-Have a pleasant experience.
+Welcome to the transaction app. <br>
+To launch the app, open the file named <b>index.html</b> <br>
+Have a pleasant experience. 
